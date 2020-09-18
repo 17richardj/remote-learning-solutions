@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Gamry</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $( "#bundt" ).submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '/class',
+      data: $('#bundt').serialize(),
+      dataType: "json",
+      success: function(response){
+        //alert("a");
+        //console.log(response.Success);
+        $('#bundt')[0].reset();
+        document.getElementById("check").innerHTML=response.Success;
+              //ADD THIS CODE
+              setTimeout(function(){
+                document.getElementById("check").innerHTML="";
+              },3000);
+              if (response.Success=="Success!") {
+                console.log("successsss");
+                document.getElementById("aa").click();
+              };
+            },
+            error: function() {
+            }
+          })
+  });
+});
+
+$("form").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "/class",
+      data: {},
+	  type: 'GET', // if you want to send data via the "data" property change this to "POST". This can be omitted otherwise
+      success: function(responseData) {
+      },
+      error: console.error
+    });
+  });
+</script>
+<style>
+body{
+  height: 100%;
+  font-family: ;/*courier garamond candara*/
+}
+.fa {
+padding: 20px;
+font-size: 24px;
+width: ;
+text-align: center;
+text-decoration: none;
+border-radius: 50%;
+color: black;
+}
+</style>
+</head>
+<body>
+<nav id = "navbarColo" class="navbar navbar-expand-lg navbar-light  navbar-fixed">
+  <a class="navbar-brand" href="#" style="font-family: garamond; border-bottom: medium solid black "><strong>Game</strong>ry</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+  		<li class="nav-item active">
+  			<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+  		</li>
+  		<li class="nav-item">
+  			<a class="nav-link" href="/scoreboard">Leaderboards</a>
+  		</li>
+  		<li class="nav-item">
+  			<a class="nav-link" href="/library">Library</a>
+  		</li>
+  	</ul>
+    <span class="navbar-text">
+      <a href="#" class="fa fa-facebook"></a>
+      <a href="#" class="fa fa-twitter"></a>
+      <a href="#" class="fa fa-instagram"></a>
+    </span>
+  </div>
+</nav>
+
+<div class="container h-100 col-sm-8 text-center" style="margin-top: 3%">
+  <% if (typeof blob !== 'undefined' && blob.length > 0) { %>
+  <% for(var i = 0; i < blob.length; i++) { %>
+  <h1 style="font-family: garamond">Welcome to <%= blob[i].instructor_name %>'s Class</h1>
+  <% } %>
+  <% } else {%>
+    <h5>Server ERR </h5><button href="/"></button>
+    <% } %>
+  <hr>
+  <h4><em>Thanks for Joining Us!</em></h4>
+  <form action="/class" method="get">
+  <button type="submit" class="btn btn-dark">Continue</button>
+  <div id="LangTable"><a href="/class" id="aa"></a>
+  </div>
+</form>
+</div>
+<!-- Footer -->
+<footer class="page-footer font-small cyan darken-3">
+
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    <hr class="w-25">
+    <div class="footer-copyright text-center py-3"><em>Not the class you were looking for?</em>
+      <a href="https://mdbootstrap.com/" style="color: black"> <strong>click here</strong></a>
+    </div>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</body>
+</html>

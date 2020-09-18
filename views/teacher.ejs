@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gamry</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/offcanvas/">
+	<link rel="stylesheet" href="./css/main.css">
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+	  $( "#form1" ).submit(function(event) {
+	    event.preventDefault();
+	    $.ajax({
+	      type: 'POST',
+	      url: '/teacher',
+	      data: $('#form1').serialize(),
+	      dataType: "json",
+	      success: function(response){
+	        //alert("a");
+	        //console.log(response.Success);
+	        $('#form1')[0].reset();
+	        document.getElementById("check").innerHTML=response.Success;
+	              //ADD THIS CODE
+	              setTimeout(function(){
+	                document.getElementById("check").innerHTML="";
+	              },3000);
+	              if (response.Success=="Success!") {
+	              };
+	            },
+	            error: function() {
+	            }
+	          })
+	  });
+	});
+	</script>
+	<style>
+	.table{
+	   display: block !important;
+	   overflow-x: auto !important;
+	   width: 100% !important;
+	 }
+	 body {
+	  /* Set "my-sec-counter" to 0 */
+	  counter-reset: my-sec-counter;
+		height: 100%;
+		font-family: ;/*courier garamond candara*/
+		color: black;
+	}
+  .fa {
+  padding: 20px;
+  font-size: 24px;
+  width: ;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  color: black;
+}
+	#navbarColor {
+		background-attachment: fixed;
+		background: -webkit-gradient(linear, left top, right top, from(#7b4397), to(#dc2430)) fixed;
+}
+.wrapper {
+  padding-top: 60px;
+	width: 100%;
+	background-color: ;
+	height: 50%
+}
+
+.main-container {
+  background: ;
+  position: relative;
+  color: #FFFFFF;
+}
+
+.main-container:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -36px;
+  width: 100%;
+  height: 72px;
+  background: black;
+  -webkit-transform: skewY(2.5deg);
+  -moz-transform: skewY(2.5deg);
+  -ms-transform: skewY(2.5deg);
+  -o-transform: skewY(2.5deg);
+  transform: skewY(2.5deg);
+  -webkit-backface-visibility: hidden;
+}
+
+section {
+  margin: 10px 0;
+  padding: 0 20px;
+  padding-bottom: 10px;
+  position: relative;
+}
+	</style>
+</head>
+<nav id = "navbarColo" class="navbar navbar-expand-lg navbar-light  navbar-fixed">
+  <a class="navbar-brand" href="#" style="font-family: garamond; border-bottom: medium solid black "><strong>Game</strong>ry</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/scoreboard">Leaderboards</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/library">Library</a>
+			</li>
+		</ul>
+    <span class="navbar-text">
+      <a href="/logout" class="fa fa-user"></a>
+    </span>
+  </div>
+</nav>
+<div class="container text-left">
+		<div class="col-sm-12">
+			<h2 style="font-family: garamond;">Dashboard</h2><h3 id="check"></h3>
+			<hr>
+			<div>
+		</div>
+		<% if (typeof blob !== 'undefined' && blob.length > 0) { %>
+		<% for(var i = 0; i < blob.length; i++) { %>
+
+<div class="modal fade bd-example-modal-lg<%= i %>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+			<div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"><strong>Editing: </strong><%= blob[i].class_name %></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+				<div class="modal-body">
+					<form id="form1" method="post" class="needs-validation h-100" oninput='pwdConf.setCustomValidity(password.value != pwdConf.value ? "Passwords do not match." : "")'>
+						<div class="container text-left">
+						<div class="row">
+							<div class="col">
+				        <div class="form-group">
+				          <label for="email">Class Title:</label>
+				          <input type="text" class="form-control" id="uname" minLength="4" maxlength="20" placeholder="Ex: History 154" value="<%= blob[i].class_name %>" name="className" required>
+				          <div class="valid-feedback">Valid.</div>
+				          <div class="invalid-feedback">Please fill out this field.</div>
+				        </div>
+							</div>
+							<div class="col">
+				        <div class="form-group">
+				          <label for="email">Subject:</label>
+				          <input class="form-control" placeholder="Ex: History" data-inputmask="'alias': 'email'" value="<%= blob[i].subject %>" name="subject" required>
+				          <div class="valid-feedback">Valid.</div>
+				          <div class="invalid-feedback">Please fill out this field.</div>
+				        </div>
+								<div class="form-group">
+				          <input class="form-control" type="hidden" name="id" value="<%= blob[i]._id %>">
+				        </div>
+							</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-9">
+									<div class="form-group">
+										<label for="email">Instructor:</label>
+										<input class="form-control" minLength="4" maxlength="20" placeholder="Ex: John Doe" data-inputmask="'alias': 'email'" value="<%= blob[i].instructor_name %>" name="instrName" required>
+										<div class="valid-feedback">Valid.</div>
+										<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label for="email">Year:</label>
+										<input class="form-control" placeholder="Ex: 2020" data-inputmask="'alias': 'email'" value="<%= blob[i].year %>" name="year" required>
+										<div class="valid-feedback">Valid.</div>
+										<div class="invalid-feedback">Please fill out this field.</div>
+									</div>
+								</div>
+								</div>
+								<div class="form-group">
+				    <label for="exampleFormControlTextarea1">Description/Comments</label>
+				    <textarea class="form-control" placeholder="Enter Description" id="exampleFormControlTextarea1" rows="3" name="descr"><%= blob[i].description %></textarea>
+
+				<label for="email">Relevant Websites</label>
+						<div class="input-group control-group after-add-more">
+							<input type="text" name="addmore" id="ContactNo" class="form-control" placeholder="Enter a url">
+							<div class="input-group-btn">
+								<button class="btn btn-dark add-more" type="button">+</button>
+							</div>
+						</div>
+				<div class="copy hide">
+				<div class="control-group input-group" style="margin-top:10px">
+					<input type="text" name="addmore" class="form-control" placeholder="Enter a url">
+					<div class="input-group-btn">
+						<button class="btn btn-outline-dark remove" aria-label="Close" type="button">X</button>
+					</div>
+				</div>
+				</div>
+
+
+
+				  </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-dark">Save Changes</button>
+					</div>
+				      </form>
+						</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+			<div id="accordion">
+			<div class="card border-dark mb-3">
+			  <div class="card-header" style="background-color: ">
+					<div class="row">
+						<span class="col-sm-2">
+							<!-- Large modal -->
+				<button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target=".bd-example-modal-lg<%= i %>">Edit</button>
+
+					</span>
+					<h5 class="col-sm-8" style="font-weight: 70">Class: <%= blob[i].class_name %></h5>
+				<span class="col-sm-2">
+					<!--
+					data-target='#collapse'
+				-->
+				<script>
+				var count = 0;
+				</script>
+				<button class="btn btn-link" id="mod" data-target='#collapse<%= i %>' data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+          <span class="fa fa-angle-double-down" ></span>
+        </button>
+			</span>
+			</div>
+				</div>
+				<div id="collapse<%= i %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+				<div class="card-body text-dark">
+					<h5 class="card-title">Dark card title</h5>
+<p class="card-text"><%= blob[i].description %></p>
+					<footer class="blockquote-footer">Instructor <cite title="Source Title"><%= blob[i].instructor_name %></cite></footer>
+			  </div>
+			</div>
+			</div>
+			</span>
+		</div>
+		<% } %>
+		<% } else { %>
+			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+						<div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel"><strong>Create a Class</strong></h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+							<div class="modal-body">
+								<form id="form1" method="post" class="needs-validation h-100" oninput='pwdConf.setCustomValidity(password.value != pwdConf.value ? "Passwords do not match." : "")'>
+									<div class="container text-left">
+									<div class="row">
+										<div class="col">
+							        <div class="form-group">
+							          <label for="email">Class Title:</label>
+							          <input type="text" class="form-control" id="uname" minLength="4" maxlength="20" placeholder="Ex: History 154" name="cr_className" required>
+							          <div class="valid-feedback">Valid.</div>
+							          <div class="invalid-feedback">Please fill out this field.</div>
+							        </div>
+										</div>
+										<div class="col">
+							        <div class="form-group">
+							          <label for="email">Subject:</label>
+							          <input class="form-control" placeholder="History" data-inputmask="'alias': 'email'" name="cr_subject" required>
+							          <div class="valid-feedback">Valid.</div>
+							          <div class="invalid-feedback">Please fill out this field.</div>
+							        </div>
+										</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-9">
+												<div class="form-group">
+													<label for="email">Instructor:</label>
+													<input type="text" class="form-control" id="uname" minLength="4" maxlength="20" placeholder="Ex: John Doe" name="cr_instrName" required>
+													<div class="valid-feedback">Valid.</div>
+													<div class="invalid-feedback">Please fill out this field.</div>
+												</div>
+											</div>
+											<div class="col-sm-3">
+												<div class="form-group">
+													<label for="email">Year:</label>
+													<input class="form-control" placeholder="Ex: 2020" data-inputmask="'alias': 'email'" name="cr_year" required>
+													<div class="valid-feedback">Valid.</div>
+													<div class="invalid-feedback">Please fill out this field.</div>
+												</div>
+											</div>
+											</div>
+											<div class="form-group">
+							    <label for="exampleFormControlTextarea1">Description/Comments</label>
+							    <textarea class="form-control" placeholder="Enter Description" id="exampleFormControlTextarea1" name="cr_descr" rows="3"></textarea>
+
+							<label for="email">Relevant Websites</label>
+									<div class="input-group control-group after-add-more">
+										<input type="text" name="cr_addmore[]" id="ContactNo" class="form-control" placeholder="Enter a url">
+										<div class="input-group-btn">
+											<button class="btn btn-dark add-more" type="button">+</button>
+										</div>
+									</div>
+							<div class="copy hide">
+							<div class="control-group input-group" style="margin-top:10px">
+								<input type="text" name="cr_addmore[]" class="form-control" placeholder="Enter a url">
+								<div class="input-group-btn
+								">
+									<button class="btn btn-outline-dark remove" aria-label="Close" type="button">X</button>
+								</div>
+							</div>
+							</div>
+
+
+
+							  </div>
+							      </form>
+									</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-dark">Save Changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target=".bd-example-modal-lg">Create a Class +</button>
+
+			<% } %>
+	</div>
+<div class="container text-left">
+	<script>
+	$(document).ready(function() {
+      $(".add-more").click(function(){
+          var html = $(".copy").html();
+          $(".after-add-more").after(html);
+      });
+      $("body").on("click",".remove",function(){
+          $(this).parents(".control-group").remove();
+      });
+    });
+	</script>
+	<div class="container">
+
+
+
+
+
+
+
+		 <footer class="page-footer font-small cyan darken-3">
+
+	 		<!-- Footer Elements -->
+	 		<div class="container">
+
+	 			<!-- Grid row-->
+	 			<div class="row">
+
+	 				<!-- Grid column -->
+	 				<div class="col-md-12 ">
+	 					<div class="col-sm-3 mx-auto">
+	 						<a href="#" class="fa fa-facebook"></a>
+	 						<a href="#" class="fa fa-twitter"></a>
+	 						<a href="#" class="fa fa-instagram"></a>
+	 					</div>
+	 				</div>
+	 				<!-- Grid column -->
+
+	 			</div>
+	 			<!-- Grid row-->
+
+	 		</div>
+	 		<!-- Footer Elements -->
+
+	 		<!-- Copyright -->
+	 		<div class="footer-copyright text-center py-3">© 2020 Copyright:
+	 			<a href="https://mdbootstrap.com/" style="color: black"><strong>gamery.com</strong></a>
+	 		</div>
+	 		<!-- Copyright -->
+
+	 	</footer>
+	 	<!-- Footer -->
+
+
+
+
+		<center>
+</body>
+</html>
